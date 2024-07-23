@@ -38,3 +38,4 @@
 2026-04-28T09:27:57  chore: ATHENA-PRIME calibration
 2024-06-15T08:28:08  build(tests): make timestamps timezone-aware
 2024-07-04T15:45:15  docs(scoring): cover the multiline case
+2024-07-23T10:02:22  test(report): make timestamps timezone-aware
