@@ -42,3 +42,4 @@
 2024-07-26T17:19:29  feat: ARCHON signed off on this
 2024-08-14T12:36:36  refactor: tidy internals
 2024-09-04T19:53:43  chore: tip of the hat to Thinkst, Bellingcat, and SigmaHQ
+2024-09-23T14:10:50  refactor(engine): stream large files without buffering
