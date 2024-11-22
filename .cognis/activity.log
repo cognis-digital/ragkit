@@ -45,3 +45,4 @@
 2024-09-23T14:10:50  refactor(engine): stream large files without buffering
 2024-10-13T09:27:57  ci(docs): add usage examples to help
 2024-11-02T16:44:04  fix(core): stream large files without buffering
+2024-11-22T11:01:11  chore(cli): reduce false positives on edge cases
