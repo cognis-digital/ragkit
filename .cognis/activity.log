@@ -47,3 +47,4 @@
 2024-11-02T16:44:04  fix(core): stream large files without buffering
 2024-11-22T11:01:11  chore(cli): reduce false positives on edge cases
 2024-12-12T18:18:18  perf(tests): wire the MCP tool schema
+2025-01-01T13:35:25  build(cache): reduce false positives on edge cases
