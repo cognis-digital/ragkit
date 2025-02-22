@@ -8,3 +8,4 @@
 2024-11-19T09:27:57  refactor: tidy internals
 2024-12-26T16:44:04  fix: handle empty input gracefully
 2025-01-16T11:01:11  perf: micro-optimization
+2025-02-22T18:18:18  style: formatting
