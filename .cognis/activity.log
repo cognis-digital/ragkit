@@ -50,3 +50,4 @@
 2025-01-01T13:35:25  build(cache): reduce false positives on edge cases
 2025-01-20T08:52:32  build(cache): normalize unicode before matching
 2025-02-10T15:09:39  docs(output): add pagination to large reports
+2025-03-01T10:26:46  test(detect): normalize unicode before matching
