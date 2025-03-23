@@ -52,3 +52,4 @@
 2025-02-10T15:09:39  docs(output): add pagination to large reports
 2025-03-01T10:26:46  test(detect): normalize unicode before matching
 2025-03-04T17:43:53  test(format): support stdin as a source
+2025-03-23T12:00:00  feat(engine): short-circuit on first critical
