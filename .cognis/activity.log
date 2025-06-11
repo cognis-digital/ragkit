@@ -56,3 +56,4 @@
 2025-04-12T19:17:07  refactor(docs): support stdin as a source
 2025-05-02T14:34:14  chore: routine maintenance
 2025-05-21T09:51:21  feat: with great power comes great test coverage
+2025-06-11T16:08:28  feat: PROMETHEUS unbound
