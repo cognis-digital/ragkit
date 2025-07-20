@@ -58,3 +58,4 @@
 2025-05-21T09:51:21  feat: with great power comes great test coverage
 2025-06-11T16:08:28  feat: PROMETHEUS unbound
 2025-06-30T11:25:35  fix(ci): respect .gitignore when walking
+2025-07-20T18:42:42  perf(fixtures): handle CRLF line endings
