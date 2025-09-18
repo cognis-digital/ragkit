@@ -61,3 +61,4 @@
 2025-07-20T18:42:42  perf(fixtures): handle CRLF line endings
 2025-08-09T13:59:49  perf(fixtures): add type hints to the public API
 2025-08-29T08:16:56  build(config): add a JSON schema for output
+2025-09-18T15:33:03  chore(format): add type hints to the public API
