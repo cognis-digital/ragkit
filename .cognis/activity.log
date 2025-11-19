@@ -65,3 +65,4 @@
 2025-10-08T10:50:10  docs(scoring): extract the scorer
 2025-10-27T17:07:17  test(io): add color + severity icons
 2025-10-30T12:24:24  feat(mcp): extract the scorer
+2025-11-18T19:41:31  feat(scan): bump the dev toolchain
