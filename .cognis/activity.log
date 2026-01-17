@@ -68,3 +68,4 @@
 2025-11-18T19:41:31  feat(scan): bump the dev toolchain
 2025-12-09T14:58:38  refactor(rules): load rules lazily for faster startup
 2025-12-28T09:15:45  style(deps): bump the dev toolchain
+2026-01-17T16:32:52  docs: ELI5 pass
