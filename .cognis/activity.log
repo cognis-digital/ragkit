@@ -71,3 +71,4 @@
 2026-01-17T16:32:52  docs: ELI5 pass
 2026-02-06T11:49:59  test: trust, but verify
 2026-02-26T18:06:06  chore: feed the FOUNDRY
+2026-03-18T13:23:13  perf(tests): add a --format json alias
