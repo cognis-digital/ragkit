@@ -36,9 +36,13 @@ self-host RAG
 <a name="features"></a>
 ## Features
 
-- ✅ Todo
-- ✅ Fixme
-- ✅ Xxx
+- ✅ Tokenize
+- ✅ Chunk Text
+- ✅ Ingest Paths
+- ✅ Build Index
+- ✅ Save Index
+- ✅ Load Index
+- ✅ Answer
 - ✅ Runs on Linux/macOS/Windows · Docker · devcontainer
 - ✅ Ports in Python, JavaScript, Go, and Rust (`ports/`)
 
