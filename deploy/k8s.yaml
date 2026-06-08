@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ragkit, labels: { app: ragkit } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ragkit } }
+  template:
+    metadata: { labels: { app: ragkit } }
+    spec:
+      containers:
+        - name: ragkit
+          image: ghcr.io/cognis-digital/ragkit:latest
+          ports: [{ containerPort: 8000 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: ragkit }
+spec:
+  selector: { app: ragkit }
+  ports: [{ port: 80, targetPort: 8000 }]
