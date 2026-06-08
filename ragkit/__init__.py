@@ -1,37 +1,11 @@
-"""RAGKIT - Batteries-included local RAG pipeline (ingest, index, serve).
-
-Standard-library only. Zero install. Self-host retrieval-augmented generation
-over your own documents with TF-IDF + cosine similarity scoring.
-"""
-from .core import (
-    Document,
-    Chunk,
-    SearchResult,
-    RagIndex,
-    chunk_text,
-    tokenize,
-    ingest_paths,
-    build_index,
-    save_index,
-    load_index,
-    answer,
-)
-
-TOOL_NAME = "ragkit"
-TOOL_VERSION = "1.0.0"
-
-__all__ = [
-    "Document",
-    "Chunk",
-    "SearchResult",
-    "RagIndex",
-    "chunk_text",
-    "tokenize",
-    "ingest_paths",
-    "build_index",
-    "save_index",
-    "load_index",
-    "answer",
-    "TOOL_NAME",
-    "TOOL_VERSION",
-]
+"""ragkit — part of the Cognis Neural Suite."""
+try:  # re-export the tool's public API + identity from core
+    from ragkit.core import *  # noqa: F401,F403
+except Exception:  # pragma: no cover
+    pass
+try:
+    from ragkit.core import TOOL_NAME, TOOL_VERSION
+except Exception:  # pragma: no cover
+    TOOL_NAME = "ragkit"
+    TOOL_VERSION = "0.1.0"
+__version__ = TOOL_VERSION
