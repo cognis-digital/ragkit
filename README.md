@@ -20,6 +20,31 @@ pip install cognis-ragkit
 ragkit scan .            # → prioritized findings in seconds
 ```
 
+## Usage — step by step
+
+`ragkit` is a local, dependency-light RAG pipeline: ingest + TF-IDF index, search, and extractive cited answers. Console script: `ragkit`.
+
+1. **Install**:
+   ```bash
+   pipx install ragkit     # or: pip install ragkit
+   ```
+2. **Build an index** from files or directories of `.txt` / `.md` documents (written to `.ragkit/index.json` by default):
+   ```bash
+   ragkit index ./docs --chunk-size 80 --overlap 20
+   ```
+3. **Search** for the top-k most relevant chunks:
+   ```bash
+   ragkit search "how do retries work" --top-k 5
+   ```
+4. **Ask** for an extractive, cited answer and read it as JSON (the `--format` flag is global, before the subcommand):
+   ```bash
+   ragkit --format json ask "what is the retention policy" --top-k 3 | jq '.answer, .citations'
+   ```
+5. **Inspect the index in CI/automation** to confirm it built and is fresh:
+   ```bash
+   ragkit --format json stats | jq '.documents, .chunks'
+   ```
+
 ## Contents
 
 - [Why ragkit?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
