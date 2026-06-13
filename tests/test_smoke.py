@@ -1,5 +1,4 @@
 """Smoke tests for RAGKIT. No network, no third-party deps."""
-import json
 import os
 import sys
 import tempfile
