@@ -137,5 +137,88 @@ class CliTests(unittest.TestCase):
         self.assertEqual(rc, 1)
 
 
+
+
+class HardeningTests(unittest.TestCase):
+    """Tests covering the new error-handling and edge-case paths."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.src = os.path.join(self.tmp, "doc.md")
+        with open(self.src, "w", encoding="utf-8") as fh:
+            fh.write(CORPUS["backups.md"])
+        self.index_path = os.path.join(self.tmp, "idx.json")
+
+    # ── core: load_index with corrupt/truncated JSON ──────────────────────
+
+    def test_load_corrupt_json_raises_valueerror(self):
+        bad = os.path.join(self.tmp, "bad.json")
+        with open(bad, "w") as fh:
+            fh.write("{not: valid json{{")
+        from ragkit.core import load_index
+        with self.assertRaises(ValueError) as ctx:
+            load_index(bad)
+        self.assertIn("not valid JSON", str(ctx.exception))
+
+    def test_load_missing_fields_raises_valueerror(self):
+        import json as _json
+        bad = os.path.join(self.tmp, "missing_fields.json")
+        # Valid JSON but missing idf/chunk_size/overlap
+        with open(bad, "w") as fh:
+            _json.dump({"index_version": 2, "chunks": []}, fh)
+        from ragkit.core import load_index
+        with self.assertRaises(ValueError) as ctx:
+            load_index(bad)
+        self.assertIn("missing required fields", str(ctx.exception))
+
+    def test_load_malformed_chunk_record(self):
+        import json as _json
+        bad = os.path.join(self.tmp, "bad_chunk.json")
+        # chunk record has wrong keys
+        with open(bad, "w") as fh:
+            _json.dump({
+                "index_version": 2,
+                "chunks": [{"bad_key": "oops"}],
+                "idf": {},
+                "chunk_size": 80,
+                "overlap": 20,
+            }, fh)
+        from ragkit.core import load_index
+        with self.assertRaises(ValueError) as ctx:
+            load_index(bad)
+        self.assertIn("malformed chunk", str(ctx.exception))
+
+    # ── cli: --top-k validation ───────────────────────────────────────────
+
+    def test_search_top_k_zero_returns_2(self):
+        main(["index", self.src, "--index", self.index_path])
+        rc = main(["search", "backups", "--index", self.index_path, "--top-k", "0"])
+        self.assertEqual(rc, 2)
+
+    def test_ask_top_k_negative_returns_2(self):
+        main(["index", self.src, "--index", self.index_path])
+        rc = main(["ask", "backups", "--index", self.index_path, "--top-k", "-1"])
+        self.assertEqual(rc, 2)
+
+    # ── core: build_index with zero docs ─────────────────────────────────
+
+    def test_build_index_empty_docs_search_returns_empty(self):
+        idx = build_index([])
+        self.assertEqual(idx.stats["documents"], 0)
+        self.assertEqual(idx.stats["chunks"], 0)
+        # search on empty index should return [] not raise
+        hits = idx.search("anything")
+        self.assertEqual(hits, [])
+
+    # ── cli: corrupt index file returns exit 1 ────────────────────────────
+
+    def test_corrupt_index_file_cli_returns_1(self):
+        bad = os.path.join(self.tmp, "corrupt.json")
+        with open(bad, "w") as fh:
+            fh.write("!!!notjson!!!")
+        rc = main(["stats", "--index", bad])
+        self.assertEqual(rc, 1)
+
+
 if __name__ == "__main__":
     unittest.main()

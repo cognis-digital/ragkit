@@ -157,12 +157,27 @@ class RagIndex:
 
     @classmethod
     def from_dict(cls, data: dict) -> "RagIndex":
+        if not isinstance(data, dict):
+            raise ValueError("index data must be a JSON object")
         if data.get("index_version") != INDEX_VERSION:
             raise ValueError(
-                f"incompatible index_version {data.get('index_version')}, "
+                f"incompatible index_version {data.get('index_version')!r}, "
                 f"expected {INDEX_VERSION}"
             )
-        chunks = [Chunk(**c) for c in data["chunks"]]
+        _REQUIRED = ("chunks", "idf", "chunk_size", "overlap")
+        missing = [k for k in _REQUIRED if k not in data]
+        if missing:
+            raise ValueError(
+                f"index is missing required fields: {', '.join(missing)}"
+            )
+        if not isinstance(data["chunks"], list):
+            raise ValueError("index 'chunks' must be a list")
+        try:
+            chunks = [Chunk(**c) for c in data["chunks"]]
+        except (TypeError, KeyError) as exc:
+            raise ValueError(
+                f"malformed chunk record in index: {exc}"
+            ) from exc
         return cls(
             chunks=chunks,
             idf=data["idf"],
@@ -225,7 +240,12 @@ def load_index(path: str) -> RagIndex:
     if not os.path.isfile(path):
         raise FileNotFoundError(f"index not found: {path} (run 'ragkit index' first)")
     with open(path, "r", encoding="utf-8") as fh:
-        data = json.load(fh)
+        try:
+            data = json.load(fh)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"index file is not valid JSON ({path}): {exc}"
+            ) from exc
     return RagIndex.from_dict(data)
 
 

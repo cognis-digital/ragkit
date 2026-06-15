@@ -98,12 +98,18 @@ def main(argv: Optional[List[str]] = None) -> int:
             return 0
 
         if args.command == "search":
+            if args.top_k < 1:
+                print("error: --top-k must be a positive integer", file=sys.stderr)
+                return 2
             idx = load_index(args.index)
             hits = idx.search(args.query, top_k=args.top_k)
             _emit({"query": args.query, "results": [vars(h) for h in hits]}, fmt)
             return 0
 
         if args.command == "ask":
+            if args.top_k < 1:
+                print("error: --top-k must be a positive integer", file=sys.stderr)
+                return 2
             idx = load_index(args.index)
             _emit(answer(idx, args.query, top_k=args.top_k), fmt)
             return 0
