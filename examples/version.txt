@@ -1,0 +1,3 @@
+$ ragkit-emit --version
+
+ragkit 0.1.0

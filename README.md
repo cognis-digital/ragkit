@@ -20,6 +20,63 @@ pip install cognis-ragkit
 ragkit scan .            # → prioritized findings in seconds
 ```
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ ragkit-emit --version
+ragkit 0.1.0
+```
+
+```console
+$ ragkit-emit --help
+usage: ragkit [-h] [--version] [--format {table,json}]
+              {index,search,ask,stats} ...
+
+Local RAG pipeline: ingest, index, serve.
+
+positional arguments:
+  {index,search,ask,stats}
+    index               build an index from files/directories
+    search              retrieve top-k chunks for a query
+    ask                 extractive cited answer for a query
+    stats               show index statistics
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+                        output format
+```
+
+> Blocks above are real `ragkit` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"Findings": [
+    {
+        "ID": "12345",
+        "Title": "Suspicious Activity Detected",
+        "Description": "An unknown entity accessed our network.",
+        "Severity": "High"
+    },
+    {
+        "ID": "67890",
+        "Title": "Malware Infection Found",
+        "Description": "A virus was detected on a workstation.",
+        "Severity": "Medium"
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 `ragkit` is a local, dependency-light RAG pipeline: ingest + TF-IDF index, search, and extractive cited answers. Console script: `ragkit`.
